@@ -380,6 +380,12 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
+          -- Kinda hacky, but configures a current workspace for the LSP.
+          map('<leader>cw', function()
+            local current_buffer_directory = vim.fs.dirname(vim.fn.expand '%:p')
+            vim.lsp.buf.add_workspace_folder(current_buffer_directory)
+          end, '[C]onfigure [W]orkspace', 'n')
+
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -687,10 +693,10 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -791,6 +797,17 @@ require('lazy').setup({
       }
     end,
   },
+
+  {
+    'Luxed/ayu-vim',
+    config = function()
+      vim.o.termguicolors = true
+      vim.cmd.colorscheme 'ayu'
+      vim.o.background = 'light'
+    end,
+  },
+
+  'leafo/moonscript-vim',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
