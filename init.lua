@@ -487,6 +487,8 @@ require('lazy').setup({
         },
 
         ruby_lsp = {},
+
+        zls = {},
       }
 
       -- Ensure the servers and tools above are installed
