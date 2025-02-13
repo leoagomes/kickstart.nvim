@@ -486,8 +486,8 @@ require('lazy').setup({
           },
         },
 
-        ruby_lsp = {},
-
+        solargraph = {},
+        -- ruby_lsp = {},
         zls = {},
       }
 
@@ -806,6 +806,7 @@ require('lazy').setup({
       vim.o.termguicolors = true
       vim.cmd.colorscheme 'ayu'
       vim.o.background = 'light'
+      vim.g.ayu_extended_palette = 1
     end,
   },
 
