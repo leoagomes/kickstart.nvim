@@ -482,6 +482,11 @@ require('lazy').setup({
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               diagnostics = { disable = { 'missing-fields' } },
+              workspace = {
+                library = {
+                  '${3rd}/love2d/library',
+                },
+              },
             },
           },
         },
@@ -790,6 +795,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'ayu'
       vim.o.background = 'light'
       vim.g.ayu_extended_palette = 1
+      vim.g.ayucolor = 'mirage'
     end,
   },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
@@ -827,6 +833,12 @@ require('lazy').setup({
       date_format = '%Y-%m-%d', -- template for the date, check Date format section for more options
       virtual_text_column = 1, -- virtual text start column, check Start virtual text at column section for more options
     },
+  },
+
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
   },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
