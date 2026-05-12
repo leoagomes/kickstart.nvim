@@ -977,10 +977,10 @@ end
 -- Custom themes
 -- ============================================================
 do
-  vim.pack.add(
-    "https://github.com/catppuccin/nvim",
-    "https://github.com/ayu-theme/ayu-vim"
-  )
+  vim.pack.add {
+    { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+    { src = "https://github.com/ayu-theme/ayu-vim", name = "ayu" },
+  }
 end
 
 
