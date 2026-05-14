@@ -985,7 +985,54 @@ end
 
 
 -- add small terminal
-vim.keymap.set("n", "<leader>st", "<CMD>split | resize 10 | term<CR>", { desc = "[S]mall [T]erminal" })
+-- configure the shell for PowerShell on Windows
+if vim.fn.has 'win64' == 1 then
+  vim.o.shell = 'powershell'
+  vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command $PSStyle.OutputRendering = 'PlainText';"
+  vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.o.shellquote = ''
+  vim.o.shellxquote = ''
+end
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = vim.api.nvim_create_augroup('custom-term-open', { clear = true }),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end,
+})
+-- vim.keymap.set("n", "<leader>st", "<CMD>split | resize 10 | term<CR>", { desc = "[S]mall [T]erminal" })
+vim.keymap.set("n", "<leader>st", function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd('J')
+  vim.api.nvim_win_set_height(0, 15)
+end, { desc = "[S]mall [T]erminal" })
+
+-- Neovide
+if vim.g.neovide then
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<C-+>',
+    function()
+      vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
+    end
+  )
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<C-->',
+    function()
+      vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
+    end
+  )
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<C-0>',
+    function()
+      vim.g.neovide_scale_factor = 1
+    end
+  )
+end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
